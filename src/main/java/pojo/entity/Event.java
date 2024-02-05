@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(
@@ -46,6 +48,18 @@ public class Event {
             name = "Category"
     )
     private EventCategory category;
+    @OneToMany(
+            mappedBy = "event"
+    )
+    private Set<Post> posts = new HashSet();
+    @ManyToMany
+    private Set<User> attendees = new HashSet();
+    @ManyToOne
+    private User creator;
+    @ManyToMany(
+            mappedBy = "favoriteEvents"
+    )
+    private Set<User> favoritedByUsers = new HashSet();
 
     public Event() {
     }
@@ -62,7 +76,7 @@ public class Event {
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -70,7 +84,7 @@ public class Event {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -78,7 +92,7 @@ public class Event {
     }
 
     public String getDescription() {
-        return description;
+        return this.description;
     }
 
     public void setDescription(String description) {
@@ -86,7 +100,7 @@ public class Event {
     }
 
     public LocalDateTime getTimestamp() {
-        return timestamp;
+        return this.timestamp;
     }
 
     public void setTimestamp(LocalDateTime timestamp) {
@@ -94,7 +108,7 @@ public class Event {
     }
 
     public String getLocation() {
-        return location;
+        return this.location;
     }
 
     public void setLocation(String location) {
@@ -102,7 +116,7 @@ public class Event {
     }
 
     public String getCoverImageUrl() {
-        return coverImageUrl;
+        return this.coverImageUrl;
     }
 
     public void setCoverImageUrl(String coverImageUrl) {
@@ -110,7 +124,7 @@ public class Event {
     }
 
     public Double getEntryfee() {
-        return entryfee;
+        return this.entryfee;
     }
 
     public void setEntryfee(Double entryfee) {
@@ -118,10 +132,42 @@ public class Event {
     }
 
     public EventCategory getCategory() {
-        return category;
+        return this.category;
     }
 
     public void setCategory(EventCategory category) {
         this.category = category;
+    }
+
+    public Set<Post> getPosts() {
+        return this.posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Set<User> getAttendees() {
+        return this.attendees;
+    }
+
+    public void setAttendees(Set<User> attendees) {
+        this.attendees = attendees;
+    }
+
+    public User getCreator() {
+        return this.creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Set<User> getFavoritedByUsers() {
+        return this.favoritedByUsers;
+    }
+
+    public void setFavoritedByUsers(Set<User> favoritedByUsers) {
+        this.favoritedByUsers = favoritedByUsers;
     }
 }
