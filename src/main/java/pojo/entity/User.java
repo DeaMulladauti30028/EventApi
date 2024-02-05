@@ -61,12 +61,47 @@ public class User {
     )
     private Set<User> followers = new HashSet();
 
+    @ManyToMany(
+            mappedBy = "followers"
+    )
+    private Set<User> following = new HashSet();
+    @OneToMany(
+            mappedBy = "author",
+            cascade = {CascadeType.ALL},
+            orphanRemoval = true
+    )
+    private Set<Post> posts;
+    @ManyToMany(
+            mappedBy = "attendees"
+    )
+    private Set<Event> eventsAttended = new HashSet();
+    @OneToMany(
+            mappedBy = "creator"
+    )
+    private Set<Event> eventsCreated = new HashSet();
+    @ManyToMany
+    private Set<Post> likedPosts = new HashSet();
+    @OneToMany(
+            mappedBy = "author"
+    )
+    private Set<Comment> comments = new HashSet();
+    @ManyToMany
+    @JoinTable(
+            name = "user_favorites",
+            joinColumns = {@JoinColumn(
+                    name = "user_id"
+            )},
+            inverseJoinColumns = {@JoinColumn(
+                    name = "event_id"
+            )}
+    )
+    private Set<Event> favoriteEvents = new HashSet();
 
     public User() {
     }
 
-    public User(Integer id, String name, String username, String email, String password, String bio, String profilePictureUrl, String location, Set<User> followers) {
-        Id = id;
+    public User(Integer id, String name, String username, String email, String password, String bio, String profilePictureUrl, String location, Set<User> followers, Set<User> following, Set<Post> posts, Set<Event> eventsAttended, Set<Event> eventsCreated, Set<Post> likedPosts, Set<Comment> comments, Set<Event> favoriteEvents) {
+        this.Id = id;
         this.name = name;
         this.username = username;
         this.email = email;
@@ -75,19 +110,25 @@ public class User {
         this.profilePictureUrl = profilePictureUrl;
         this.location = location;
         this.followers = followers;
+        this.following = following;
+        this.posts = posts;
+        this.eventsAttended = eventsAttended;
+        this.eventsCreated = eventsCreated;
+        this.likedPosts = likedPosts;
+        this.comments = comments;
+        this.favoriteEvents = favoriteEvents;
     }
 
-
     public Integer getId() {
-        return Id;
+        return this.Id;
     }
 
     public void setId(Integer id) {
-        Id = id;
+        this.Id = id;
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public void setName(String name) {
@@ -95,7 +136,7 @@ public class User {
     }
 
     public String getUsername() {
-        return username;
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -103,7 +144,7 @@ public class User {
     }
 
     public String getEmail() {
-        return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
@@ -111,7 +152,7 @@ public class User {
     }
 
     public String getPassword() {
-        return password;
+        return this.password;
     }
 
     public void setPassword(String password) {
@@ -119,7 +160,7 @@ public class User {
     }
 
     public String getBio() {
-        return bio;
+        return this.bio;
     }
 
     public void setBio(String bio) {
@@ -127,7 +168,7 @@ public class User {
     }
 
     public String getProfilePictureUrl() {
-        return profilePictureUrl;
+        return this.profilePictureUrl;
     }
 
     public void setProfilePictureUrl(String profilePictureUrl) {
@@ -135,7 +176,7 @@ public class User {
     }
 
     public String getLocation() {
-        return location;
+        return this.location;
     }
 
     public void setLocation(String location) {
@@ -143,10 +184,66 @@ public class User {
     }
 
     public Set<User> getFollowers() {
-        return followers;
+        return this.followers;
     }
 
     public void setFollowers(Set<User> followers) {
         this.followers = followers;
+    }
+
+    public Set<User> getFollowing() {
+        return this.following;
+    }
+
+    public void setFollowing(Set<User> following) {
+        this.following = following;
+    }
+
+    public Set<Post> getPosts() {
+        return this.posts;
+    }
+
+    public void setPosts(Set<Post> posts) {
+        this.posts = posts;
+    }
+
+    public Set<Event> getEventsAttended() {
+        return this.eventsAttended;
+    }
+
+    public void setEventsAttended(Set<Event> eventsAttended) {
+        this.eventsAttended = eventsAttended;
+    }
+
+    public Set<Event> getEventsCreated() {
+        return this.eventsCreated;
+    }
+
+    public void setEventsCreated(Set<Event> eventsCreated) {
+        this.eventsCreated = eventsCreated;
+    }
+
+    public Set<Post> getLikedPosts() {
+        return this.likedPosts;
+    }
+
+    public void setLikedPosts(Set<Post> likedPosts) {
+        this.likedPosts = likedPosts;
+    }
+
+    public Set<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public Set<Event> getFavoriteEvents() {
+        return this.favoriteEvents;
+    }
+
+    public void setFavoriteEvents(Set<Event> favoriteEvents) {
+        this.favoriteEvents = favoriteEvents;
     }
 }
