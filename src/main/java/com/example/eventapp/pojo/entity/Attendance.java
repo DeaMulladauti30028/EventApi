@@ -1,4 +1,4 @@
-package pojo.entity;
+package com.example.eventapp.pojo.entity;
 
 import jakarta.persistence.*;
 
