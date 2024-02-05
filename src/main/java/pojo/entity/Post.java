@@ -39,22 +39,24 @@ public class Post {
     private Event event;
     @ManyToMany
     private Set<User> likes = new HashSet();
+    @OneToMany(
+            mappedBy = "post"
+    )
+    private Set<Comment> comments = new HashSet();
 
     public Post() {
     }
 
-    public Post(Integer id, String content, String imageUrl, LocalDateTime timestamp, User author, Event event, Set<User> likes) {
+    public Post(Integer id, String content, String imageUrl, LocalDateTime timestamp, User author) {
         this.id = id;
         this.content = content;
         this.imageUrl = imageUrl;
         this.timestamp = timestamp;
         this.author = author;
-        this.event = event;
-        this.likes = likes;
     }
 
     public Integer getId() {
-        return id;
+        return this.id;
     }
 
     public void setId(Integer id) {
@@ -62,7 +64,7 @@ public class Post {
     }
 
     public String getContent() {
-        return content;
+        return this.content;
     }
 
     public void setContent(String content) {
@@ -70,7 +72,7 @@ public class Post {
     }
 
     public String getImageUrl() {
-        return imageUrl;
+        return this.imageUrl;
     }
 
     public void setImageUrl(String imageUrl) {
@@ -78,7 +80,7 @@ public class Post {
     }
 
     public LocalDateTime getTimestamp() {
-        return timestamp;
+        return this.timestamp;
     }
 
     public void setTimestamp(LocalDateTime timestamp) {
@@ -86,7 +88,7 @@ public class Post {
     }
 
     public User getAuthor() {
-        return author;
+        return this.author;
     }
 
     public void setAuthor(User author) {
@@ -94,7 +96,7 @@ public class Post {
     }
 
     public Event getEvent() {
-        return event;
+        return this.event;
     }
 
     public void setEvent(Event event) {
@@ -102,11 +104,19 @@ public class Post {
     }
 
     public Set<User> getLikes() {
-        return likes;
+        return this.likes;
     }
 
     public void setLikes(Set<User> likes) {
         this.likes = likes;
+    }
+
+    public Set<Comment> getComments() {
+        return this.comments;
+    }
+
+    public void setComments(Set<Comment> comments) {
+        this.comments = comments;
     }
 }
 
