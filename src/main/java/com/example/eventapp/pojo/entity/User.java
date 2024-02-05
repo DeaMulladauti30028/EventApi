@@ -1,4 +1,4 @@
-package pojo.entity;
+package com.example.eventapp.pojo.entity;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
